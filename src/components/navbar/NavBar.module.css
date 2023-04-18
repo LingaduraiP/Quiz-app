@@ -1,0 +1,28 @@
+.nav__fluid{
+   height: 50px;
+   box-shadow: 0 1px 10px   rgba(0, 0, 0, 0.064);
+}
+
+.nav__container{
+    height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav__container img{
+    height: 50px;
+    width: auto;
+    object-fit: fill;
+}
+.user__details{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+.user__details p{
+    margin-top: 15px;
+    font-family: var(--secondary-font);
+    font-weight: 900;
+}

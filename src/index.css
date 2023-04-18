@@ -1,0 +1,38 @@
+/* Google fonts Link */
+
+@import url('https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+
+
+
+:root{
+    /* Colors  */
+    --light-green:#e3fdfd;
+    --mid-green: #cbf1f5;
+    --green-clr:#a6e3e9;
+    --dark-green:#72c9ce;
+
+    /* Fonts */
+    --primary-font:'Poppins', sans-serif;
+    --secondary-font: 'Hammersmith One', sans-serif;
+
+    /* Boxshadow */
+    
+
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    min-height: 100vh;
+    background-color: var(--light-green);
+}
+
+.container-fluid{
+    padding: 0;
+}

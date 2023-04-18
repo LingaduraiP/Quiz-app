@@ -1,0 +1,13 @@
+.quiz__container {
+  width: 100%;
+  margin-top: 2rem;
+  padding: 3rem 3rem;
+  /* background: linear-gradient(
+    to right bottom,
+    var(--mid-green),
+    var(--light-green),
+    var(--mid-green)
+  ); */
+  box-shadow: 10px 10px 10px #72c9ce19, inset 10px 10px 10px #72c9ce1f;
+  border-radius: 10px;
+}
