@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./SingleQuestions.module.css";
 
 const SingleQuestions = ({
@@ -7,34 +7,67 @@ const SingleQuestions = ({
   onNextQus,
   lengthOfAllQuestions,
 }) => {
-  const [activeButton, setActiveButton] = useState(null);
-  const [selectedAns, setSelectedAns] = useState([]);
-  // const [answer, setAnswer] = useState("Not Answer");
-  const [answerResult, setAnswerResult] = useState([]);
-  let answerListArr = answerResult;
-  // let answerResult=[]
 
+  // States
+  const [activeButton, setActiveButton] = useState(null);
+  const [selectedAns, setSelectedAns] = useState(
+    new Array(lengthOfAllQuestions).fill("Not Answered")
+  );
+  const [answerResult, setAnswerResult] = useState(
+    new Array(lengthOfAllQuestions).fill("Not Answer")
+  );
+
+//  Active Button Handler
   const activeButtonHandler = (i) => {
     setActiveButton(i);
   };
 
+  // Moving to the next Question
+
   const nextQusFn = () => {
     onNextQus((prev) => prev + 1);
-
-    // no answers are selected
-    if (typeof activeButton === "object") {
-      answerListArr[curQusNo - 1] = "not Answer";
-      setAnswerResult(answerListArr);
-    }
-
-    setActiveButton(null);
+    submitAns()
   };
 
+  // Moving to the previous Question
   const prevQusFn = () => {
     onNextQus((prev) => prev - 1);
-    setActiveButton(null);
+    submitAns()
   };
 
+  // Submiting answers Fn
+  function submitAns() {
+    //  Checking if the user choose any answer or not
+    if (typeof activeButton === "object") {
+      return;
+    } else {
+      let answerResultArr = answerResult;
+
+      // for Selected answers
+      let selectedAnswersArr = selectedAns;
+      selectedAnswersArr[curQusNo - 1] = activeButton;
+      setSelectedAns(selectedAnswersArr);
+
+      // Checking Answer is right or Wrong
+      if (currentQuestion.options[activeButton] === currentQuestion.answer) {
+        answerResultArr[curQusNo - 1] = "correct";
+      } else {
+        answerResultArr[curQusNo - 1] = "wrong";
+      }
+      setAnswerResult(answerResultArr);
+    }
+  }
+
+  // cheking Your Already selected answer or not 
+  useEffect(()=>{
+    if(selectedAns[curQusNo-1] !=='Not Answered'   )
+  {
+    setActiveButton(selectedAns[curQusNo-1])
+  }
+  else{
+    setActiveButton(null);
+  }
+  },[curQusNo])
   return (
     <div className={classes.question__container}>
       <p className={classes.question__text}>
@@ -54,7 +87,7 @@ const SingleQuestions = ({
         ))}
       </div>
       <div className={classes.button__container}>
-        <button disabled={curQusNo === 0} onClick={prevQusFn}>
+        <button disabled={curQusNo-1 === 0} onClick={prevQusFn}>
           prev
         </button>
         <button disabled={lengthOfAllQuestions <= curQusNo} onClick={nextQusFn}>

@@ -1,23 +1,25 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import classes from "./Category.module.css";
 import CategoryOption from "./category option/CategoryOption";
-import useFetchData from "../../hooks/use-fetch";
+import QuizContext from "../../store/quizContext/QuizContext";
 
 const Category = () => {
   const [listArr, setListArr] = useState([]);
+  const quizCtx = useContext(QuizContext);
+  const data = quizCtx.category;
 
   const selectedList = (value) => {
-    
     if (listArr.indexOf(value) === -1) {
       setListArr((prev) => [...prev, value]);
     } else {
-      setListArr(prev=>prev.filter(val=>val !==value))
+      setListArr((prev) => prev.filter((val) => val !== value));
     }
   };
-  const data = useFetchData(
-    "https://quiz-app-2c4b1-default-rtdb.firebaseio.com/quizHeadeing.json"
-  );
+  
 
+  const submitHandler=()=>{
+    quizCtx.setQuestionFn(listArr)
+  }
   return (
     <div className="row">
       {data.length > 0 &&
@@ -30,16 +32,8 @@ const Category = () => {
             />
           </div>
         ))}
-      {/* <div className={`col-md-6 ${classes.category}`}><CategoryOption /></div>
-        <div className={`col-md-6 ${classes.category}`}><CategoryOption/></div>
-        <div className={`col-md-6 ${classes.category}`}><CategoryOption/></div>
-        <div className={`col-md-6 ${classes.category}`}><CategoryOption/></div>
-        <div className={`col-md-6 ${classes.category}`}><CategoryOption/></div>
-        <div className={`col-md-6 ${classes.category}`}><CategoryOption/></div>
-        <div className={`col-md-6 ${classes.category}`}><CategoryOption/></div>
-        <div className={`col-md-6 ${classes.category}`}><CategoryOption/></div>
-        <div className={`col-md-6 ${classes.category}`}><CategoryOption/></div>
-        <div className={`col-md-6 ${classes.category}`}><CategoryOption/></div> */}
+
+        <button onClick={submitHandler}>submit</button>
     </div>
   );
 };

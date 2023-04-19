@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useState } from "react";
 import classes from "./Question.module.css";
 import SingleQuestions from "./singleQuestions/SingleQuestion";
 import useFetchData from "../../hooks/use-fetch";
@@ -9,7 +9,6 @@ const url =
 const Question = () => {
   const [currentQusNo, setCurrentQusNo] = useState(0);
   const questions = useFetchData(url);
-  let score = [];
 
 
   return (
