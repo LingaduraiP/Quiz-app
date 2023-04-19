@@ -3,7 +3,7 @@ import classes from "./Category.module.css";
 import CategoryOption from "./category option/CategoryOption";
 import QuizContext from "../../store/quizContext/QuizContext";
 
-const Category = () => {
+const Category = ({onSetSelectedLabel}) => {
   const [listArr, setListArr] = useState([]);
   const quizCtx = useContext(QuizContext);
   const data = quizCtx.category;
@@ -19,6 +19,7 @@ const Category = () => {
 
   const submitHandler=()=>{
     quizCtx.setQuestionFn(listArr)
+    onSetSelectedLabel(listArr)
   }
   return (
     <div className="row">

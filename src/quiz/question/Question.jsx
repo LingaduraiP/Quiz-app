@@ -1,24 +1,28 @@
-import React, { useState } from "react";
+import React, { memo, useContext, useState } from "react";
 import classes from "./Question.module.css";
 import SingleQuestions from "./singleQuestions/SingleQuestion";
-import useFetchData from "../../hooks/use-fetch";
+import QuizContext from "../../store/quizContext/QuizContext";
 
-const url =
-  "https://quiz-app-2c4b1-default-rtdb.firebaseio.com/quiz/Kannadacinema.json";
-
-const Question = () => {
+  
+  const Question = ({categoryLabel}) => {
+  const quizCtx= useContext(QuizContext)
   const [currentQusNo, setCurrentQusNo] = useState(0);
-  const questions = useFetchData(url);
-
+  const selectedLabel=[]
+ 
+  categoryLabel.forEach(element => {
+  selectedLabel.push(quizCtx.category[element])
+    
+  });
 
   return (
     <>
-      {questions.length > 0 && (
+      {quizCtx.questions.length > 0 && (
         <SingleQuestions
           onNextQus={setCurrentQusNo}
-          currentQuestion={questions[currentQusNo]}
+          currentQuestion={quizCtx.questions[currentQusNo]}
           curQusNo={currentQusNo + 1}
-          lengthOfAllQuestions={questions.length}
+          lengthOfAllQuestions={quizCtx.questions.length}
+          categoryLabel={selectedLabel}
         />
       )}
       
@@ -26,4 +30,4 @@ const Question = () => {
   );
 };
 
-export default Question;
+export default memo(Question);
